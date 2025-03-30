@@ -5,8 +5,8 @@ A web application where users can create, read, update and delete tasks - CRUD.
 ## Members
 
 - Munsyzbayev Daniyar
-- Asiya
-- Balnur
+- Kengesbay Assiya
+- Dauirkhankyzy Balnur
 
 ## Stack
 - Frontend - Angular(JS)
