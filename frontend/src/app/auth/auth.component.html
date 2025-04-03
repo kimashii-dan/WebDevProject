@@ -1,0 +1,17 @@
+<h2>Форма для регистрации</h2>
+
+<form (ngSubmit)="onSubmit()">
+  <label>
+    Username:
+    <input type="text" [(ngModel)]="formData.username" name="username" />
+  </label>
+  <br />
+
+  <label>
+    Password:
+    <input type="password" [(ngModel)]="formData.password" name="password" />
+  </label>
+  <br />
+
+  <button type="submit">Отправить</button>
+</form>
