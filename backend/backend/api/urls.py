@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from api.views import TaskListView, RegisterUserView, TaskDetailView, TaskCreateView, UserProfileView
+from api.views import TaskListView, RegisterUserView, TaskDetailView, TaskCreateView, UserProfileView, create_comment, update_or_delete_comment
 
 
 urlpatterns = [
@@ -13,6 +13,8 @@ urlpatterns = [
     path('register/', RegisterUserView.as_view(), name='register'),
     path('profile/', UserProfileView.as_view(), name='user-profile'),
     path('tasks/', TaskListView.as_view(), name='tasks'),
-    path('tasks/post/', TaskCreateView.as_view(), name='tasks-post'),
+    path('tasks/post/', TaskCreateView.as_view(), name='task-create'),
     path('tasks/<int:task_id>/', TaskDetailView.as_view(), name='task-detail'),
+    path('tasks/<int:task_id>/comments/', create_comment, name='comment-create'),
+    path('tasks/<int:task_id>/comments/<int:comment_id>/', update_or_delete_comment, name='comment-update-delete'),
 ]

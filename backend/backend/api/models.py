@@ -32,7 +32,7 @@ class Task(models.Model):
 
 class Comment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="comments")
-    content = models.TextField()
+    content = models.CharField(max_length=200)
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
