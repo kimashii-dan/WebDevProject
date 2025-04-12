@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthInterceptor } from './auth.interceptor';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { LoginResponse, RegisterResponse } from '../types';
 
 @Component({
   selector: 'app-auth',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
 })
 export class AuthComponent {
   constructor(private http: HttpClient, private authService: AuthService) {}

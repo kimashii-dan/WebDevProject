@@ -8,4 +8,9 @@ interface RegisterResponse {
   username: string;
 }
 
-export type { LoginResponse, RegisterResponse };
+interface UserData {
+  id: number;
+  username: string;
+}
+
+export type { LoginResponse, RegisterResponse, UserData };
