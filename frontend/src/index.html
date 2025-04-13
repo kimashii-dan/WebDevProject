@@ -1,13 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Frontend</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskView</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <app-root></app-root>
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <a href="/tasks" class="logo">TaskView</a>
+            <ul class="navbar-links">
+                <li><a href="/tasks">Tasks</a></li>
+                <li><a href="/tasks/new">New Task</a></li>
+                <li><a href="/signin">Sign In</a></li>
+                <li><a href="/signup">Create Account</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1 class="main-title">Appreciate life, <br> Be creative.</h1>
+            <p class="description">
+                Join millions of people to capture ideas, organize life and create something creative.
+            </p>
+            <div class="auth-buttons">
+                <a href="/signin" class="btn sign-in">Sign In</a>
+                <a href="/signup" class="btn create-account">Create Account</a>
+            </div>
+        </div>
+    </div>
+
+    <app-root></app-root>
+
 </body>
 </html>

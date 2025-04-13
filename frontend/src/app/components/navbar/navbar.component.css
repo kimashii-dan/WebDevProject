@@ -1,0 +1,105 @@
+/* Основной контейнер */
+.main-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Сайдбар */
+  .sidebar {
+    width: 250px;
+    background: #ffffff;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    margin-right: 30px;
+  }
+  
+  .logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul li a {
+    color: #333;
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .sidebar ul li a:hover {
+    color: #4CAF50;
+  }
+  
+  /* Контент справа */
+  .content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #00bcd4, #8e2de2); /* Градиентный фон */
+    color: white;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    height: 80%;
+    text-align: center;
+  }
+  
+  /* Текстовый блок */
+  .text-section h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .text-section p {
+    font-size: 18px;
+    color: #f1f1f1;
+    margin-bottom: 40px;
+  }
+  
+  /* Кнопки для входа и регистрации */
+  .auth-buttons .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin: 10px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .auth-buttons .btn:hover {
+    background-color: #388e3c;
+    transform: translateY(-5px);
+  }
+  
+  .auth-buttons .btn-signup {
+    background-color: #007bff;
+  }
+  
+  .auth-buttons .btn-signup:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,4 +1,36 @@
 <div class="form-wrapper">
+  <h2 class="form-title">{{ isLogin ? 'Login' : 'Register' }}</h2>
+
+  <form (ngSubmit)="onSubmit()" class="auth-form">
+    <input
+      type="text"
+      placeholder="Username"
+      [(ngModel)]="formData.username"
+      name="username"
+      required
+    />
+
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="formData.password"
+      name="password"
+      required
+    />
+
+    <button type="submit">{{ isLogin ? 'Login' : 'Register' }}</button>
+  </form>
+
+  <p class="switch-mode" (click)="toggleMode()">
+    {{ isLogin ? 'No account? Register' : 'Already have an account? Login' }}
+  </p>
+
+  <button (click)="goBack()" style="margin-top: 1rem;">← Back to tasks</button>
+
+</div>
+
+
+<!-- <div class="form-wrapper">
     <h2 class="form-title">{{ isLogin ? 'Login' : 'Register' }}</h2>
   
     <form (ngSubmit)="onSubmit()" class="auth-form">
@@ -22,7 +54,10 @@
     </form>
   
     <p class="switch-mode" (click)="toggleMode()">
-      {{ isLogin ? 'No account? Register' : 'Already have an account? Login' }}
+      {{ isLogin ? 'No account? Register' : 'Already have an account? Login' }} 
     </p>
-  </div>
+
+    <button (click)="goBack()" style="margin-top: 1rem;">← Back to tasks</button>
+
+  </div> -->
   
