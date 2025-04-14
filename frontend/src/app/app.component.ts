@@ -1,17 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import {
-  NavigationEnd,
-  Router,
-  RouterModule,
-  RouterOutlet,
-} from '@angular/router';
-import { filter } from 'rxjs';
+import { ApplicationModule, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule, CommonModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  standalone: true,
+  imports: [RouterModule],
+  template: ` <router-outlet></router-outlet> `,
 })
 export class AppComponent {
   showNavbar = true;
@@ -23,3 +17,17 @@ export class AppComponent {
       });
   }
 }
+
+// @Component({
+//   selector: 'app-root',
+//   standalone: true,
+//   imports: [AuthComponent, ApplicationModule],
+//   template: '<app-auth />',
+// })
+
+// // @Component({
+//   selector: 'app-root',
+//   imports: [RouterOutlet],
+//   templateUrl: './app.component.html',
+//   styleUrl: './app.component.css'
+// })

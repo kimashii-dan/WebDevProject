@@ -36,4 +36,8 @@ export class AuthService {
   saveAccessToken(access_token: string) {
     localStorage.setItem('access_token', access_token);
   }
+  login(accessToken: string, refreshToken: string) {
+    this.saveBothTokens(accessToken, refreshToken);
+  }
+  
 }

@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { LoginResponse, RegisterResponse } from '../types';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-auth',
@@ -12,7 +14,7 @@ import { LoginResponse, RegisterResponse } from '../types';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router ) {}
   isLogin = true;
 
   formData = {
@@ -61,4 +63,8 @@ export class AuthComponent {
         });
     }
   }
+  goBack() {
+    this.router.navigate(['/tasks']);
+  }
+  
 }
