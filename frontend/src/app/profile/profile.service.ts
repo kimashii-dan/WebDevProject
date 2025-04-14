@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProfileService {
-  httpClient: HttpClient = inject(HttpClient);
+  private url = 'http://localhost:8000/api/profile/';
 
-  url = 'http://localhost:8000/api/profile/';
+  constructor(private httpClient: HttpClient) {}
 
   fetchProfile(): Observable<UserData> {
     return this.httpClient.get<UserData>(this.url);

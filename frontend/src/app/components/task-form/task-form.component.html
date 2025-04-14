@@ -1,50 +1,36 @@
-<div class="form-container">
-    <h2>Create New Task</h2>
-  
-    <form (ngSubmit)="saveTask()">
-      <label for="taskTitle">Title</label>
-      <input type="text" id="taskTitle" [(ngModel)]="task.title" name="title" required placeholder="Enter task title" />
-  
-      <label for="taskDescription">Description</label>
-      <textarea id="taskDescription" [(ngModel)]="task.description" name="description" placeholder="Enter task description"></textarea>
-  
-      <label for="taskStatus">Status</label>
-      <select id="taskStatus" [(ngModel)]="task.status" name="status" required>
-        <option value="pending">Pending</option>
-        <option value="completed">Completed</option>
-      </select>
-  
-      <button type="submit">Save Task</button>
-    </form>
-  </div>
-  
-  
+<div class="modal-overlay">
+  <form (ngSubmit)="handkeCreateTask()" class="create-task-form">
+    <button (click)="handleClose()" class="modal-close">×</button>
+    <label for="taskTitle">Title</label>
+    <input
+      type="text"
+      id="taskTitle"
+      [(ngModel)]="newTask.title"
+      name="title"
+      required
+      placeholder="Enter task title"
+    />
 
+    <label for="taskDescription">Description</label>
+    <textarea
+      id="taskDescription"
+      [(ngModel)]="newTask.description"
+      name="description"
+      placeholder="Enter task description"
+    ></textarea>
 
-<!-- <h2>Create task</h2>
-<form (ngSubmit)="saveTask()">
-  <label>Title:
-    <input type="text" [(ngModel)]="task.title" name="title" required />
-  </label>
-  <br />
-
-  <label>Description:
-    <textarea [(ngModel)]="task.description" name="description"></textarea>
-  </label>
-  <br />
-
-  <label>Status:
-    <select [(ngModel)]="task.status" name="status">
-      <option value="pending">Pending</option>
-      <option value="completed">Completed</option>
+    <label for="taskPriority">Priority</label>
+    <select
+      id="taskPriority"
+      [(ngModel)]="newTask.priority"
+      name="priority"
+      required
+    >
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
     </select>
-  </label>
-  <br />
 
-  <label>Category:
-    <input type="text" [(ngModel)]="task.category" name="category" />
-  </label>
-  <br />
-
-  <button type="submit">Save</button>
-</form> -->
+    <button class="submit-btn" type="submit">Save Task</button>
+  </form>
+</div>

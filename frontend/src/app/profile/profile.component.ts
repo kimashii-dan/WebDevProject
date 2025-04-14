@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { UserData } from '../types';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,8 @@ export class ProfileComponent {
 
   constructor(
     private authService: AuthService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private router: Router
   ) {
     this.profileService.fetchProfile().subscribe({
       next: (data) => (this.profileData = data),
@@ -24,5 +26,6 @@ export class ProfileComponent {
 
   handleClick() {
     this.authService.logout();
+    this.router.navigate(['/auth']);
   }
 }

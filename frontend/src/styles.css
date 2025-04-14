@@ -1,101 +1,46 @@
-/* Общие стили */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+    --primary-bg: #f4f6f9;
+    --secondary-bg: #ffffff;
+    --primary-text: #333333;
+    --secondary-text: #666666;
+    --accent: #4caf50;
+    --error: #f44336;
+    --info: #2196f3;
+    --border-color: #e0e0e0;
+    --hover-bg: #f1f1f1;
+    --button-bg: #4caf50;
+    --button-text: #ffffff;
+    --disabled-bg: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    box-sizing: border-box;
+    text-decoration: none;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f1f5f9; /* светлый фон */
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    background-color: var(--primary-bg);
 }
 
-/* Контейнер для страницы */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  text-align: center;
+a,
+button,
+input,
+textarea,
+select,
+option {
+    font-family: "Inter", sans-serif;
+    cursor: pointer;
 }
 
-/* Navbar */
-.navbar {
-  width: 100%;
-  background-color: #4772fa; /* синий цвет */
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
-
-.navbar .logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.navbar-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.navbar-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.navbar-links a:hover {
-  color: #ffb000; /* желтый для hover */
-}
-
-/* Основной контент */
-.main-content {
-  background-color: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
-  margin-top: 40px;
-}
-
-.main-title {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.description {
-  font-size: 18px;
-  margin-bottom: 30px;
-  color: #666;
-}
-
-.auth-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.auth-buttons .btn {
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.sign-in {
-  background-color: #4772fa;
-}
-
-.create-account {
-  background-color: #4caf50;
-}
-
-.btn:hover {
-  opacity: 0.8;
+hr {
+    margin: 0;
+    height: 2px;
+    background-color: var(--primary-text);
 }

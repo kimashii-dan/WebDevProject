@@ -1,5 +1,5 @@
 <div class="form-wrapper">
-  <h2 class="form-title">{{ isLogin ? 'Login' : 'Register' }}</h2>
+  <h2 class="form-title">{{ isLogin ? "Login" : "Register" }}</h2>
 
   <form (ngSubmit)="onSubmit()" class="auth-form">
     <input
@@ -18,17 +18,13 @@
       required
     />
 
-    <button type="submit">{{ isLogin ? 'Login' : 'Register' }}</button>
+    <button type="submit">{{ isLogin ? "Login" : "Register" }}</button>
   </form>
 
   <p class="switch-mode" (click)="toggleMode()">
-    {{ isLogin ? 'No account? Register' : 'Already have an account? Login' }}
+    {{ isLogin ? "No account? Register" : "Already have an account? Login" }}
   </p>
-
-  <button (click)="goBack()" style="margin-top: 1rem;">← Back to tasks</button>
-
 </div>
-
 
 <!-- <div class="form-wrapper">
     <h2 class="form-title">{{ isLogin ? 'Login' : 'Register' }}</h2>
@@ -60,4 +56,3 @@
     <button (click)="goBack()" style="margin-top: 1rem;">← Back to tasks</button>
 
   </div> -->
-  

@@ -6,7 +6,6 @@ import { AuthService } from './auth.service';
 import { LoginResponse, RegisterResponse } from '../types';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-auth',
   imports: [CommonModule, FormsModule],
@@ -14,7 +13,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
-  constructor(private http: HttpClient, private authService: AuthService, private router: Router ) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
+  ) {}
   isLogin = true;
 
   formData = {
@@ -41,6 +44,7 @@ export class AuthComponent {
           next: (data) => {
             console.log('Login successful:', data);
             this.authService.saveBothTokens(data.access, data.refresh);
+            this.router.navigate(['/']);
           },
           error: (error) => {
             console.error('Login error:', error);
@@ -56,6 +60,7 @@ export class AuthComponent {
         .subscribe({
           next: (data) => {
             console.log('Registration successful:', data);
+            this.router.navigate(['auth']);
           },
           error: (error) => {
             console.error('Registration error:', error);
@@ -66,5 +71,4 @@ export class AuthComponent {
   goBack() {
     this.router.navigate(['/tasks']);
   }
-  
 }

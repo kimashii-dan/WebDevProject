@@ -13,4 +13,11 @@ interface UserData {
   username: string;
 }
 
-export type { LoginResponse, RegisterResponse, UserData };
+interface Task {
+  title: string;
+  description: string;
+  status: boolean;
+  priority: string;
+}
+
+export type { LoginResponse, RegisterResponse, UserData, Task };
