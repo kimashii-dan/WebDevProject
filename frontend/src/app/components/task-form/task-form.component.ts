@@ -29,9 +29,10 @@ export class TaskFormComponent {
     this.close.emit();
   }
 
-  handkeCreateTask() {
+  handleCreateTask() {
     this.taskService.addTask(this.newTask).subscribe((addedTask: Task) => {
       this.tasks.push(addedTask);
+      this.handleClose();
     });
   }
 }

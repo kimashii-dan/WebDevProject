@@ -26,19 +26,32 @@
 
 .task-title {
   display: flex;
-  align-items: center;
-  gap: 10px
+  gap: 10px;
+  align-items: flex-start;
 }
+
+.task-title h2 {
+  overflow: hidden;
+  max-width: 225px
+}
+
 
 .task-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .task-title input {
   width: 20px;
   height: 20px;
+  margin-top: 1.5rem;
+  margin-right: 10px;
+}
+
+.task-description {
+  color: var(--secondary-text);
+
 }
 
 
@@ -79,4 +92,9 @@ select {
   border-radius: 10px;
   border: 2px solid var(--border-color);
   font-size: medium;
+}
+
+.crossed-out {
+  text-decoration: line-through;
+  color: var(--secondary-text)
 }

@@ -22,8 +22,12 @@
     <div *ngFor="let task of getFilteredTasks()" class="task-card">
       <div class="task-header">
         <div class="task-title">
-          <input type="checkbox" [checked]="task.status" disabled />
-          <h2>{{ task.title }}</h2>
+          <input
+            type="checkbox"
+            [checked]="task.status"
+            (change)="handleCheckChange(task.id, task.status)"
+          />
+          <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
         </div>
         <span [ngClass]="getPriorityClass(task.priority)">
           {{ task.priority }}

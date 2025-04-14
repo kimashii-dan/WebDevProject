@@ -23,8 +23,8 @@ export class TaskService {
     return this.http.post<Task>(`${this.url}post/`, task);
   }
 
-  updateTask(id: number, task: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.url}${id}/`, task);
+  updateTask(id: number, partOfTask: Partial<Task>): Observable<Task> {
+    return this.http.patch<Task>(`${this.url}${id}/`, partOfTask);
   }
 
   deleteTask(id: number): Observable<Task> {

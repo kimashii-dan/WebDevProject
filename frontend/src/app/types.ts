@@ -14,10 +14,12 @@ interface UserData {
 }
 
 interface Task {
+  id?: number;
   title: string;
   description: string;
   status: boolean;
   priority: string;
+  createdAt?: string;
 }
 
 export type { LoginResponse, RegisterResponse, UserData, Task };

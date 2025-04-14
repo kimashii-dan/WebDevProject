@@ -59,4 +59,16 @@ export class TaskListComponent implements OnInit {
   closeForm() {
     this.isFormOpened = false;
   }
+
+  handleCheckChange(id: number | undefined, currentStatus: boolean) {
+    if (id === undefined) return;
+
+    const updatedStatus = !currentStatus;
+    this.taskService.updateTask(id, { status: updatedStatus }).subscribe(() => {
+      const task = this.tasks.find((task) => task.id === id);
+      if (task) {
+        task.status = updatedStatus;
+      }
+    });
+  }
 }
