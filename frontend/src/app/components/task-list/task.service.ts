@@ -19,10 +19,11 @@ export class TaskService {
     return this.http.get<Task>(`${this.url}${id}/`);
   }
 
-  addTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(`${this.url}post/`, task);
-  }
 
+  addTask(task: Partial<Task>): Observable<Task> {
+    return this.http.post<Task>(this.url, task);
+  }
+  
   updateTask(id: number, partOfTask: Partial<Task>): Observable<Task> {
     return this.http.patch<Task>(`${this.url}${id}/`, partOfTask);
   }
@@ -30,4 +31,10 @@ export class TaskService {
   deleteTask(id: number): Observable<Task> {
     return this.http.delete<Task>(`${this.url}${id}/`);
   }
+
+  postComment(taskId: number, text: string): Observable<Comment> {
+    const commentData = { text };
+    return this.http.post<Comment>(`http://localhost:8000/api/tasks/${taskId}/comments/`, commentData);
+  }
+  
 }

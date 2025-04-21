@@ -1,0 +1,61 @@
+<div class="task-details-container">
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="task" class="task-content">
+    <div class="control-btns">
+      <button class="edit-btn" (click)="openForm()">Edit</button>
+      <button class="delete-btn" (click)="handleDeleteTask()">Delete</button>
+    </div>
+
+    <app-task-form
+      *ngIf="isFormOpened"
+      (close)="closeForm()"
+      (taskUpdated)="handleTaskUpdated($event)"
+      [isEditMore]="true"
+      [taskToEdit]="task">
+    </app-task-form>
+
+    <div class="task-card">
+      <div class="task-header">
+        <div class="task-title">
+          <input type="checkbox"
+                 [checked]="task.status"
+                 (click)="handleCheckClick(task.id!, task.status)" />
+          <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
+        </div>
+        <span [ngClass]="getPriorityClass(task.priority)">
+          {{ task.priority }}
+        </span>
+      </div>
+
+      <div class="task-description">
+        {{ task.description }}
+      </div>
+
+      <div class="task-meta">
+        <span class="task-date">Created: {{ task.createdAt | date }}</span>
+      </div>
+    </div>
+
+    <div class="comments-section">
+      <h3 class="comments-title">Comments ({{ comments.length }})</h3>
+
+      <div *ngIf="comments.length === 0" class="no-comments">
+        No comments yet
+      </div>
+
+      <ul class="comment-list">
+        <li *ngFor="let comment of comments" class="comment-item">
+          {{ comment.content }}
+        </li>
+      </ul>
+
+      <div class="comment-form">
+        <textarea [(ngModel)]="newComment"
+                  placeholder="Write your comment here..."
+                  class="comment-input"></textarea>
+        <button (click)="postComment()" class="comment-submit">Post Comment</button> 
+      </div>
+    </div> 
+  </div>
+</div> 

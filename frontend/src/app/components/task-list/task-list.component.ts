@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { TaskService } from './task.service';
 import { Task } from '../../types';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import { RouterModule,RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskFormComponent],
+  imports: [CommonModule, FormsModule, TaskFormComponent, RouterModule ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css',
 })
@@ -16,8 +17,9 @@ export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   filterStatus: string = 'all';
   isFormOpened = false;
+  task: any;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -70,5 +72,9 @@ export class TaskListComponent implements OnInit {
         task.status = updatedStatus;
       }
     });
+  }
+
+  goToTask(taskId: number): void {
+    this.router.navigate(['/tasks', taskId]);
   }
 }

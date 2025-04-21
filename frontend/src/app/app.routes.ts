@@ -5,6 +5,8 @@ import { Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { UnauthenticatedGuard } from './guards/unauthenticated.guard';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+
 
 export const routes: Routes = [
   {
@@ -12,10 +14,15 @@ export const routes: Routes = [
     component: TaskListComponent,
     canActivate: [UnauthenticatedGuard],
   },
-  { path: 'auth', component: AuthComponent, canActivate: [AuthenticatedGuard] },
+  { path: 'login', component: AuthComponent, canActivate: [AuthenticatedGuard] },
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [UnauthenticatedGuard],
+  },
+  {
+    path: 'tasks/:id',
+    component: TaskDetailsComponent,
     canActivate: [UnauthenticatedGuard],
   },
 ];

@@ -10,6 +10,8 @@
     *ngIf="isFormOpened"
     (close)="closeForm()"
     [tasks]="tasks"
+    [isEditMore]="false"
+
   ></app-task-form>
 
   <select id="filter" [(ngModel)]="filterStatus">
@@ -19,15 +21,20 @@
   </select>
 
   <div class="task-list">
-    <div *ngFor="let task of getFilteredTasks()" class="task-card">
+    <div *ngFor="let task of getFilteredTasks()" class="task-card" (click)="goToTask(task.id)" style="cursor: pointer;">
       <div class="task-header">
         <div class="task-title">
           <input
             type="checkbox"
             [checked]="task.status"
+            (click)="$event.stopPropagation()"
             (change)="handleCheckChange(task.id, task.status)"
           />
-          <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
+          <a [routerLink]="['/tasks', task.id]">
+            <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
+          </a>
+          
+          
         </div>
         <span [ngClass]="getPriorityClass(task.priority)">
           {{ task.priority }}
