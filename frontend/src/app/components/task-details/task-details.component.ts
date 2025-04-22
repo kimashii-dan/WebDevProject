@@ -1,104 +1,148 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Comment, TaskDetails, Task } from '../../types';
 import { TaskService } from '../task-list/task.service';
-import { Task } from '../../types';
-import { AppComment } from '../../types';
-import { CommentService } from './comment.service';
-import { TaskFormComponent } from "../task-form/task-form.component";
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CommentService } from './comment.service';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-task-details',
-  templateUrl: './task-details.component.html',
-  styleUrls: ['./task-details.component.css'],
   standalone: true,
-  imports: [TaskFormComponent, CommonModule, FormsModule]
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    TaskFormComponent,
+    MatIconModule,
+  ],
+  templateUrl: './task-details.component.html',
+  styleUrl: './task-details.component.css',
 })
 export class TaskDetailsComponent implements OnInit {
   taskId!: number;
-  task!: Task;
-  comments: AppComment[] = [];
-  newComment: string = '';
-  error: string = '';
-  isFormOpened: boolean = false;
-  router: any;
+  task!: TaskDetails;
+  taskComments!: Comment[];
+  isFormOpened = false;
+  error: string | null = null;
+  newComment = {
+    content: '',
+    task: 0,
+  };
 
   constructor(
-    private route: ActivatedRoute,
     private taskService: TaskService,
-    private commentService: CommentService
+    private route: ActivatedRoute,
+    private commentService: CommentService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.taskId = Number(this.route.snapshot.paramMap.get('id'));
     this.loadTask();
-    this.loadComments();
   }
 
   loadTask(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) return;
+
+    this.taskId = +id;
+    this.newComment.task = this.taskId;
+
     this.taskService.getTask(this.taskId).subscribe({
-      next: (data) => this.task = data,
-      error: () => this.error = 'Task not found'
-    });
-  }
-
-  loadComments(): void {
-    this.commentService.getCommentsForTask(this.taskId).subscribe({
-      next: (data: AppComment[]) => this.comments = data,
-      error: () => this.comments = []
-    });
-  }
-  
-
-  handleDeleteTask(): void {
-    this.taskService.deleteTask(this.taskId).subscribe(() => {
-      this.router.navigate(['/']);
-    });
-  }
-
-  handleCheckClick(id: number, currentStatus: boolean): void {
-    const updated = { ...this.task, status: !currentStatus };
-    this.taskService.updateTask(id, updated).subscribe(() => this.task.status = !currentStatus);
-  }
-
-  postComment(): void {
-    if (!this.newComment.trim()) return;
-
-    this.commentService.postComment(this.taskId, this.newComment).subscribe({
-      next: (comment) => {
-        this.comments.push(comment as unknown as AppComment);
-        this.newComment = '';
+      next: (data) => {
+        this.task = data;
+        this.taskComments = this.task.comments;
       },
-      error: () => {
-        console.error('Failed to post comment');
-      }
+      error: (err) => {
+        this.error = 'Failed to load task details';
+        console.error(err);
+      },
     });
-  }
-
-  openForm(): void {
-    this.isFormOpened = true;
-  }
-
-  closeForm(): void {
-    this.isFormOpened = false;
-  }
-
-  handleTaskUpdated(updatedTask: Task): void {
-    this.task = updatedTask;
-    this.closeForm();
   }
 
   getPriorityClass(priority: string): string {
-    switch (priority) {
-      case 'high':
-        return 'high-priority';
-      case 'medium':
-        return 'medium-priority';
-      case 'low':
-        return 'low-priority';
-      default:
-        return '';
+    return `${priority}`;
+  }
+
+  handleCheckClick(id: number | undefined, currentStatus: boolean) {
+    if (id === undefined) return;
+
+    const updatedStatus = !currentStatus;
+    this.taskService.updateTask({ status: updatedStatus, id }).subscribe({
+      next: () => {
+        if (this.task) {
+          this.task.status = updatedStatus;
+        }
+      },
+      error: (err) => {
+        console.error('Failed to update task status', err);
+      },
+    });
+  }
+
+  handleCommentSubmit() {
+    if (!this.newComment.content.trim()) return;
+
+    this.commentService.addComment(this.newComment).subscribe({
+      next: (addedComment: Comment) => {
+        this.task.comments.push(addedComment);
+        this.newComment.content = '';
+      },
+      error: (err) => {
+        console.error('Failed to add comment', err);
+      },
+    });
+  }
+
+  openForm() {
+    this.isFormOpened = true;
+  }
+
+  closeForm() {
+    this.isFormOpened = false;
+  }
+
+  handleTaskUpdated(updatedTask: Task) {
+    this.task = {
+      ...this.task,
+      ...updatedTask,
+    };
+    this.closeForm();
+  }
+
+  handleDeleteTask() {
+    if (!confirm('Are you sure you want to delete this task?')) return;
+
+    this.taskService.deleteTask(this.taskId).subscribe({
+      next: () => {
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        console.error('Failed to delete task', err);
+      },
+    });
+  }
+
+  handleDeleteComment(commentId: number | undefined) {
+    if (!commentId) {
+      return;
     }
+
+    const originalComments = [...this.taskComments];
+    this.taskComments = this.taskComments.filter(
+      (comment) => comment.id !== commentId
+    );
+    this.commentService.deleteComment(commentId, this.taskId).subscribe({
+      next: () => {
+        this.taskComments.filter((comment) => comment.id !== commentId);
+        console.log('Comment is deleted successfully!');
+      },
+      error: (err) => {
+        console.error('Failed to delete comment', err);
+        this.taskComments = originalComments;
+      },
+    });
   }
 }

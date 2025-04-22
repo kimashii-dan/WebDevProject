@@ -1,49 +1,5 @@
 <div class="modal-overlay">
-  <form (ngSubmit)="handleCreateOrUpdateTask()" class="create-task-form">
-    <button type="button" (click)="handleClose()" class="modal-close">×</button>
-
-    <h2>{{ isEditMore ? 'Edit Task' : 'Create New Task' }}</h2>
-
-    <label for="taskTitle">Title</label>
-    <input
-      type="text"
-      id="taskTitle"
-      [(ngModel)]="newTask.title"
-      name="title"
-      required
-      placeholder="Enter task title"
-    />
-
-    <label for="taskDescription">Description</label>
-    <textarea
-      id="taskDescription"
-      [(ngModel)]="newTask.description"
-      name="description"
-      placeholder="Enter task description"
-    ></textarea>
-
-    <label for="taskPriority">Priority</label>
-    <select
-      id="taskPriority"
-      [(ngModel)]="newTask.priority"
-      name="priority"
-      required
-    >
-      <option value="high">High</option>
-      <option value="medium">Medium</option>
-      <option value="low">Low</option>
-    </select>
-
-    <button class="submit-btn" type="submit">
-      {{ isEditMore ? 'Update Task' : 'Save Task' }}
-    </button>
-  </form>
-</div>
-
-
-
-<!-- <div class="modal-overlay">
-  <form (ngSubmit)="handleCreateTask()" class="create-task-form">
+  <form (ngSubmit)="handleSubmit()" class="create-task-form">
     <button (click)="handleClose()" class="modal-close">×</button>
     <label for="taskTitle">Title</label>
     <input
@@ -75,6 +31,8 @@
       <option value="low">Low</option>
     </select>
 
-    <button class="submit-btn" type="submit">Save Task</button>
+    <button class="submit-btn" type="submit">
+      {{ isEditMode ? "Update Task" : "Save Task" }}
+    </button>
   </form>
-</div> -->
+</div>

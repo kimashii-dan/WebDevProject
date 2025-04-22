@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Task } from '../../types';
+import { Task, TaskDetails } from '../../types';
 
 @Injectable({
   providedIn: 'root',
@@ -15,26 +15,19 @@ export class TaskService {
     return this.http.get<Task[]>(this.url);
   }
 
-  getTask(id: number): Observable<Task> {
-    return this.http.get<Task>(`${this.url}${id}/`);
+  getTask(id: number): Observable<TaskDetails> {
+    return this.http.get<TaskDetails>(`${this.url}${id}/`);
   }
 
-
-  addTask(task: Partial<Task>): Observable<Task> {
-    return this.http.post<Task>(this.url, task);
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`${this.url}post/`, task);
   }
-  
-  updateTask(id: number, partOfTask: Partial<Task>): Observable<Task> {
-    return this.http.patch<Task>(`${this.url}${id}/`, partOfTask);
+
+  updateTask(partOfTask: Partial<Task>): Observable<Task> {
+    return this.http.patch<Task>(`${this.url}${partOfTask.id}/`, partOfTask);
   }
 
   deleteTask(id: number): Observable<Task> {
     return this.http.delete<Task>(`${this.url}${id}/`);
   }
-
-  postComment(taskId: number, text: string): Observable<Comment> {
-    const commentData = { text };
-    return this.http.post<Comment>(`http://localhost:8000/api/tasks/${taskId}/comments/`, commentData);
-  }
-  
 }

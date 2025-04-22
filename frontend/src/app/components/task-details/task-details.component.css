@@ -1,191 +1,171 @@
-.task-details-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 60px auto;
-  padding: 60px;
-  background-color: #f4f7fc;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.error {
-  color: #ff3d3d;
-  background-color: #ffe6e6;
-  padding: 15px;
-  margin-bottom: 25px;
-  border-radius: 8px;
-  font-size: 16px;
-  text-align: center;
-}
-
-.task-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.control-btns {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-button {
-  padding: 12px 20px;
-  font-size: 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.edit-btn {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.delete-btn {
-  background-color: #f44336;
-  color: white;
-}
-
-.edit-btn:hover {
-  background-color: #45a049;
-}
-
-.delete-btn:hover {
-  background-color: #e41c1c;
-}
-
 .task-card {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    background-color: var(--secondary-bg);
+    position: relative;
 }
 
-.task-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .task-title {
-  display: flex;
-  align-items: center;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
 }
 
 .task-title h2 {
-  font-size: 26px;
-  font-weight: bold;
-  margin: 0;
-  color: #333;
-  transition: color 0.3s ease;
+    overflow: hidden;
 }
 
-.task-title h2.crossed-out {
-  text-decoration: line-through;
-  color: #aaa;
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.task-title input {
+    width: 20px;
+    height: 20px;
+    margin-top: 1.5rem;
+    margin-right: 10px;
 }
 
 .task-description {
-  margin: 20px 0;
-  font-size: 16px;
-  color: #555;
-  line-height: 1.6;
-}
-
-.task-meta {
-  font-size: 14px;
-  color: #777;
-  margin-top: 15px;
+    color: var(--secondary-text);
 }
 
 .task-date {
-  font-style: italic;
+    color: var(--secondary-text);
+    padding: 10px 0
 }
 
-/* Секция комментариев */
-/* Секция комментариев */
+
+hr {
+    margin-bottom: 50px
+}
+
+
+.priority-text {
+    font-weight: bold;
+}
+
+.high {
+    color: var(--high)
+}
+
+.medium {
+    color: var(--medium)
+}
+
+.low {
+    color: var(--low)
+}
+
+.crossed-out {
+    text-decoration: line-through;
+    color: var(--secondary-text)
+}
+
+.edit-btn {
+    display: block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--info);
+    color: var(--button-text);
+    text-align: center;
+}
+
+.delete-btn {
+    display: block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--error);
+    color: var(--button-text);
+    text-align: center;
+}
+
+.control-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 20px 0;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.comments {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.comments-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.comment-card {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: var(--secondary-bg);
+    position: relative;
+    width: fit-content
+}
+
+.comment-date {
+    color: var(--secondary-text);
+    margin: 0
+}
+
+
 .comments-section {
-  display: flex;
-  gap: 30px;
-  margin-top: 50px;
-  flex-wrap: wrap;
+    margin-top: 40px
 }
 
-.comment-column {
-  flex: 1 1 45%;
-  display: flex;
-  flex-direction: column;
+.submit-btn {
+    display: block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--info);
+    color: var(--button-text);
+    text-align: center;
 }
 
-.comments-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
 }
 
-.no-comments {
-  color: #777;
-  font-style: italic;
-  margin-top: 20px;
+form textarea {
+    height: 100px;
+    width: 300px
 }
 
-.comment-form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  flex-grow: 1;
-  min-height: 160px;
-  width: 70%;
-  max-width: 500px;
+input,
+textarea,
+select {
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    width: 100%
 }
 
-.comment-input {
-  padding: 12px;
-  font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  resize: vertical;
-  min-height: 120px;
-  color: #333;
-  background-color: #f8f8f8;
+.content-label {
+    font-size: large;
 }
 
-.comment-submit {
-  padding: 12px 18px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 12px;
-  font-size: 14px;
-}
 
-.comment-submit:hover {
-  background-color: #0056b3;
-}
-
-/* Стили для списка комментариев без маркеров */
-.comment-list {
-  list-style: none; /* Убираем маркеры списка */
-  padding: 0; /* Убираем отступы */
-  margin: 0; /* Убираем внешние отступы */
-}
-
-.comment-item {
-  background-color: #f1f1f1;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-.comment-item:hover {
-  background-color: #e1e1e1;
+.comment-btn {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px
 }

@@ -3,17 +3,18 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
 import { AuthService } from './auth/auth.service';
-
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, MatIconModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   showNavbar = true;
   isAuthenticated = false;
+
   constructor(private router: Router, private authService: AuthService) {
     this.authService.isAuthenticated$.subscribe((status) => {
       this.isAuthenticated = status;

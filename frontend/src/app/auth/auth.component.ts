@@ -5,10 +5,11 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { LoginResponse, RegisterResponse } from '../types';
 import { Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-auth',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatSnackBarModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
@@ -16,10 +17,10 @@ export class AuthComponent {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
   isLogin = true;
-
   formData = {
     username: '',
     password: '',
@@ -42,12 +43,19 @@ export class AuthComponent {
         .post<LoginResponse>('http://localhost:8000/api/token/', this.formData)
         .subscribe({
           next: (data) => {
+            this.snackBar.open('Login successful!', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+            });
             console.log('Login successful:', data);
             this.authService.saveBothTokens(data.access, data.refresh);
             this.router.navigate(['/']);
           },
           error: (error) => {
-            console.error('Login error:', error);
+            this.snackBar.open(`Login failed: ${error}`, 'Close', {
+              duration: 3000,
+            });
           },
         });
     } else {
@@ -59,16 +67,19 @@ export class AuthComponent {
         )
         .subscribe({
           next: (data) => {
-            console.log('Registration successful:', data);
-            this.router.navigate(['auth']);
+            this.snackBar.open('Registration successful!', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+            });
+            this.isLogin = true;
           },
           error: (error) => {
-            console.error('Registration error:', error);
+            this.snackBar.open(`Registration failed: ${error}`, 'Close', {
+              duration: 3000,
+            });
           },
         });
     }
-  }
-  goBack() {
-    this.router.navigate(['/tasks']);
   }
 }

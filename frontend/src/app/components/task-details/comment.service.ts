@@ -1,27 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppComment } from '../../types';
-
+import { Comment } from '../../types';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentService {
-
-  private apiUrl = 'http://localhost:8000/api'; // your backend URL
+  private url = 'http://localhost:8000/api/tasks/';
 
   constructor(private http: HttpClient) {}
 
-  getCommentsForTask(taskId: number): Observable<AppComment[]> {
-    return this.http.get<AppComment[]>(`${this.apiUrl}/tasks/${taskId}/comments/`);
+  addComment(comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(
+      `${this.url}${comment.task}/comments/`,
+      comment
+    );
   }
 
-  postComment(taskId: number, text: string): Observable<AppComment> {
-    return this.http.post<AppComment>(`${this.apiUrl}/tasks/${taskId}/comments/`, {
-      content: text,
-      task: taskId  
-    });
+  updateComment(partOfComment: Partial<Comment>): Observable<Comment> {
+    return this.http.patch<Comment>(
+      `${this.url}${partOfComment.task}/comments/${partOfComment.id}/`,
+      partOfComment
+    );
   }
-  
-  
+
+  deleteComment(commentId: number, taskId: number): Observable<Comment> {
+    return this.http.delete<Comment>(
+      `${this.url}${taskId}/comments/${commentId}/`
+    );
+  }
 }

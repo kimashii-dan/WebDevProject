@@ -26,4 +26,6 @@ nav {
 
 header a {
   margin: 0;
+  font-size: large;
+  font-weight: 400;
 }

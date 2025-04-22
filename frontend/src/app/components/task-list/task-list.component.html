@@ -1,6 +1,11 @@
 <section class="task-container">
   <div class="task-list-header">
-    <h1 class="title">My Tasks</h1>
+    <h1 class="title">My tasks</h1>
+    <div class="toggle-container" (click)="toggle()">
+      <div class="slider" [class.right]="isOrdered"></div>
+      <div class="toggle-option" [class.active]="!isOrdered">unordered</div>
+      <div class="toggle-option" [class.active]="isOrdered">ordered</div>
+    </div>
     <button (click)="openForm()" class="create-task-btn">
       Create new task
     </button>
@@ -9,40 +14,119 @@
   <app-task-form
     *ngIf="isFormOpened"
     (close)="closeForm()"
-    [tasks]="tasks"
-    [isEditMore]="false"
-
+    (taskUpdated)="handleTaskCreated($event)"
   ></app-task-form>
 
-  <select id="filter" [(ngModel)]="filterStatus">
-    <option value="all">All</option>
-    <option value="pending">Pending</option>
-    <option value="completed">Completed</option>
-  </select>
+  <div class="no-tasks" *ngIf="tasks.length === 0">
+    <p>You have no tasks yet</p>
+    <mat-icon class="no-tasks-icon">schedule</mat-icon>
+  </div>
 
-  <div class="task-list">
-    <div *ngFor="let task of getFilteredTasks()" class="task-card" (click)="goToTask(task.id)" style="cursor: pointer;">
-      <div class="task-header">
-        <div class="task-title">
-          <input
-            type="checkbox"
-            [checked]="task.status"
-            (click)="$event.stopPropagation()"
-            (change)="handleCheckChange(task.id, task.status)"
-          />
-          <a [routerLink]="['/tasks', task.id]">
+  <div class="task-list" *ngIf="!isOrdered && tasks.length !== 0">
+    <div *ngFor="let task of tasks">
+      <div class="task-card" (click)="handleCardClick(task.id)">
+        <div class="task-header">
+          <div class="task-title">
+            <input
+              type="checkbox"
+              [checked]="task.status"
+              (click)="handleCheckChange(task.id, task.status, $event)"
+            />
             <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
-          </a>
-          
-          
+          </div>
+          <span [ngClass]="getPriorityClass(task.priority)">
+            {{ task.priority }}
+          </span>
         </div>
-        <span [ngClass]="getPriorityClass(task.priority)">
-          {{ task.priority }}
-        </span>
-      </div>
 
-      <div class="task-description">
-        {{ task.description }}
+        <div class="task-description">
+          {{ task.description }}
+        </div>
+
+        <div class="task-date">{{ task.createdAt }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="task-board" *ngIf="isOrdered">
+    <div class="priority-column">
+      <p class="priority-title">🔴 high priority</p>
+
+      <div class="task-list">
+        <div *ngFor="let task of highPriorityTasks">
+          <div class="task-card" (click)="handleCardClick(task.id)">
+            <div class="task-header">
+              <div class="task-title">
+                <input
+                  type="checkbox"
+                  [checked]="task.status"
+                  (click)="handleCheckChange(task.id, task.status, $event)"
+                />
+                <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
+              </div>
+            </div>
+
+            <div class="task-description">
+              {{ task.description }}
+            </div>
+
+            <div class="task-date">{{ task.createdAt }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="priority-column">
+      <p class="priority-title">🔵 medium priority</p>
+
+      <div class="task-list">
+        <div *ngFor="let task of mediumPriorityTasks">
+          <div class="task-card" (click)="handleCardClick(task.id)">
+            <div class="task-header">
+              <div class="task-title">
+                <input
+                  type="checkbox"
+                  [checked]="task.status"
+                  (click)="handleCheckChange(task.id, task.status, $event)"
+                />
+                <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
+              </div>
+            </div>
+
+            <div class="task-description">
+              {{ task.description }}
+            </div>
+
+            <div class="task-date">{{ task.createdAt }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="priority-column">
+      <p class="priority-title">🟢 low priority</p>
+
+      <div class="task-list">
+        <div *ngFor="let task of lowPriorityTasks">
+          <div class="task-card" (click)="handleCardClick(task.id)">
+            <div class="task-header">
+              <div class="task-title">
+                <input
+                  type="checkbox"
+                  [checked]="task.status"
+                  (click)="handleCheckChange(task.id, task.status, $event)"
+                />
+                <h2 [class.crossed-out]="task.status">{{ task.title }}</h2>
+              </div>
+            </div>
+
+            <div class="task-description">
+              {{ task.description }}
+            </div>
+
+            <div class="task-date">{{ task.createdAt }}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

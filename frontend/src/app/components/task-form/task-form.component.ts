@@ -1,11 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TaskService } from '../task-list/task.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Task  } from '../../types';
-
-
+import { Task } from '../../types';
 
 @Component({
   selector: 'app-task-form',
@@ -15,50 +13,55 @@ import { Task  } from '../../types';
   styleUrl: './task-form.component.css',
 })
 export class TaskFormComponent implements OnInit {
-  newTask: Partial<Task>  = {
+  newTask = {
     title: '',
     description: '',
     status: false,
     priority: 'low',
-    createdAt: new Date().toISOString(),
-    comments: []
   };
-  
-  
+
+  @Input() taskToEdit!: Task;
+  @Input() tasks!: Task[];
+  @Input() isEditMode: boolean = false;
+
+  @Output() close = new EventEmitter<void>();
+  @Output() taskUpdated = new EventEmitter<Task>();
 
   constructor(private taskService: TaskService, private router: Router) {}
 
-  @Output() close = new EventEmitter<void>();
-  @Input() tasks: Task[] = [];
-  @Input() taskToEdit!: Task;
-  @Input() isEditMore: boolean = false;
-
-  @Output() taskUpdated = new EventEmitter<Task>();
-
-  ngOnInit(): void {
-    if (this.isEditMore && this.taskToEdit) {
+  ngOnInit() {
+    if (this.isEditMode && this.taskToEdit) {
       this.newTask = { ...this.taskToEdit };
     }
   }
-
 
   handleClose() {
     this.close.emit();
   }
 
-
-  handleCreateOrUpdateTask() {
-    if (this.isEditMore && this.taskToEdit) {
-      const updatedTask = { ...this.taskToEdit, ...this.newTask };
-      this.taskService.updateTask(this.taskToEdit.id!, updatedTask).subscribe((result) => {
-        this.taskUpdated.emit(result);
-        this.handleClose();
-      });
+  handleSubmit() {
+    if (this.isEditMode && this.taskToEdit) {
+      this.handleUpdateTask();
     } else {
-      this.taskService.addTask(this.newTask).subscribe((addedTask: Task) => {
-        this.tasks.push(addedTask);
-        this.handleClose();
-      });
+      this.handleCreateTask();
     }
+  }
+
+  handleCreateTask() {
+    this.taskService.addTask(this.newTask).subscribe((addedTask: Task) => {
+      this.taskUpdated.emit(addedTask);
+      this.handleClose();
+    });
+  }
+
+  handleUpdateTask() {
+    if (!this.taskToEdit) return;
+
+    const updatedTask = { ...this.newTask, id: this.taskToEdit.id };
+    console.log(this.taskToEdit);
+    this.taskService.updateTask(updatedTask).subscribe((task: Task) => {
+      this.taskUpdated.emit(task);
+      this.handleClose();
+    });
   }
 }

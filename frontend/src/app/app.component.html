@@ -1,8 +1,10 @@
 <header *ngIf="showNavbar && isAuthenticated">
   <nav>
     <div class="header-links">
-      <a [routerLink]="['']">Home</a>
-      <a [routerLink]="['profile']">Profile</a>
+      <a [routerLink]="['']"><mat-icon style="color: black">home</mat-icon></a>
+      <a [routerLink]="['profile']"
+        ><mat-icon style="color: black">person</mat-icon></a
+      >
     </div>
   </nav>
 </header>

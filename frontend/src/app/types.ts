@@ -1,6 +1,3 @@
-import { AppComponent } from "./app.component";
-
-
 interface LoginResponse {
   access: string;
   refresh: string;
@@ -16,23 +13,31 @@ interface UserData {
   username: string;
 }
 
-export type AppComment = {
-  id: number;
-  task: number;
-  content: string;
-  created_at: string;
-}
-
 interface Task {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   status: boolean;
-  priority: 'low' | 'medium' | 'high';
-  createdAt: string;
+  priority: string;
+  createdAt?: string;
+}
+
+interface Comment {
+  id?: number;
+  task: number;
+  content: string;
+  created_at?: string;
+}
+
+interface TaskDetails extends Task {
   comments: Comment[];
 }
 
-
-
-export type { LoginResponse, RegisterResponse, UserData, Task};
+export type {
+  LoginResponse,
+  RegisterResponse,
+  UserData,
+  Task,
+  TaskDetails,
+  Comment,
+};

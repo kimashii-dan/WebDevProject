@@ -1,0 +1,16 @@
+<div class="profile-data">
+  <h1>Profile</h1>
+  <div class="profile-containter">
+    <h2>
+      <span style="color: var(--secondary-text); font-weight: 500"
+        >Username:</span
+      >
+      {{ profileData?.username }}
+    </h2>
+    <div class="profile-control-btns">
+      <button class="btn-logout" (click)="handleLogout()">
+        Log out <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
